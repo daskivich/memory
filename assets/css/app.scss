@@ -2,5 +2,22 @@
 
 @import "bootstrap";
 
-.side { padding: 4ex; text-align: center; }
-h1 { text-align: center; }
+h1, h3 { text-align: center; }
+
+.spacer {
+  margin-top: 60%;
+}
+
+Button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 50%;
+  height: 88%;
+}
+
+.reset {
+  width: 25%;
+}
