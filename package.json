@@ -1,0 +1,35 @@
+{
+  "name": "memory",
+  "version": "1.0.0",
+  "description": "## Development Instructions",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "brunch": "^2.10.12",
+    "jquery": "^3.3.1",
+    "node-gyp": "^3.6.2",
+    "popper.js": "^1.12.9",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "reactstrap": "^5.0.0-alpha.4",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daskivich/memory.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daskivich/memory/issues"
+  },
+  "homepage": "https://github.com/daskivich/memory#readme"
+}
