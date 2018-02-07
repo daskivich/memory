@@ -242,7 +242,7 @@ function Tile(props) {
   return (
     <div className="col-3">
       <div className="spacer"></div>
-      <Button color={clr} onClick={() => props.update(props.index)}>
+      <Button className="memCard" color={clr} onClick={() => props.update(props.index)}>
         {disp}
       </Button>
     </div>
