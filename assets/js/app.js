@@ -22,19 +22,19 @@ import socket from "./socket"
 
 function form_init() {
 
-  let channel = socket.channel("games:demo", {});
-
-  channel.join()
-    .receive("ok", resp => { console.log("Joined successfully", resp); })
-    .receive("error", resp => { console.log("Unable to join", resp); });
-
-  $('#game-button').click(() => {
-    let xx = $('#game-input').val();
-    channel.push("name", { xx: xx })
-    .receive("greeted", msg => {
-      $('#game-output').text(msg.yy);
-    });
-  });
+  // let channel = socket.channel("games:demo", {});
+  //
+  // channel.join()
+  //   .receive("ok", resp => { console.log("Joined successfully", resp); })
+  //   .receive("error", resp => { console.log("Unable to join", resp); });
+  //
+  // $('#game-button').click(() => {
+  //   let xx = $('#game-input').val();
+  //   channel.push("name", { xx: xx })
+  //   .receive("greeted", msg => {
+  //     $('#game-output').text(msg.yy);
+  //   });
+  // });
 }
 
 import run_memory from "./memory";
@@ -43,7 +43,13 @@ function init() {
   let root = document.getElementById('game');
 
   if (root) {
-    run_memory(root);
+    let channel = socket.channel("games:" + window.gameName, {});
+
+    // channel.join()
+    //   .receive("ok", resp => { console.log("Joined successfully", resp); })
+    //   .receive("error", resp => { console.log("Unable to join", resp); });
+
+    run_memory(root, channel);
   }
 
   if (document.getElementById('index-page')) {
