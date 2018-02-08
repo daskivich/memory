@@ -33,13 +33,18 @@ class Memory extends React.Component {
 
   gotView(view) {
     console.log("New view", view);
-    console.log("View.game: ", view.game);
     this.setState(view.game);
   }
 
-  sendSelection(ev) {
-    this.channel.push("select", { index: 0 })
-      .receive("ok", this.gotView.bind(this));
+  sendSelection(index) {
+      let i = index;
+      let c = this.channel;
+      let gv = this.gotView.bind(this);
+
+      return function (ev) {
+        c.push("select", { index: i })
+          .receive("ok", gv);
+      }
   }
 
   // calculates the score based on the completed array and number of fails
@@ -175,7 +180,7 @@ function Tile(props) {
   return (
     <div className="col-3">
       <div className="spacer"></div>
-      <Button className="memCard" color={clr} onClick={props.select}>
+      <Button className="memCard" color={clr} onClick={props.select(index)}>
         {disp}
       </Button>
     </div>
