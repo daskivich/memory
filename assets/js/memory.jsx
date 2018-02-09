@@ -19,11 +19,10 @@ class Memory extends React.Component {
     this.channel = props.channel;
 
     this.state = {
-      vals: ['A', 'A', 'B', 'B', 'C', 'C', 'D', 'D',
-        'E', 'E', 'F', 'F', 'G', 'G', 'H', 'H'],
+      vals: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
       comp: [],
       sel: [],
-      fails: 0
+      score: 0
     };
 
     this.channel.join()
@@ -34,6 +33,13 @@ class Memory extends React.Component {
   gotView(view) {
     console.log("New view", view);
     this.setState(view.game);
+
+    if (this.state.sel.length == 2) {
+      setTimeout(
+        () => this.channel.push("match").receive("ok", this.gotView.bind(this)),
+        1000
+      );
+    }
   }
 
   sendSelection(index) {
@@ -47,22 +53,14 @@ class Memory extends React.Component {
       }
   }
 
-  // calculates the score based on the completed array and number of fails
-  // each completed match is worth 8, each failed attempt is worth -1
-  getScore() {
-    return (this.state.comp.length / 2) * 8 - this.state.fails;
-  }
-
   // resets the state of the game with newly randomized tile values
   // waits a second before executing to allow previously waiting calls
   // to complete their execution
   reset() {
-    setTimeout(() => this.setState({
-          vals: resetValues(),
-          comp: [],
-          sel: [],
-          fails: 0
-        }), 1000);
+    setTimeout(
+      () => this.channel.push("reset").receive("ok", this.gotView.bind(this)),
+      1000
+    );
   }
 
   render() {
@@ -143,7 +141,7 @@ class Memory extends React.Component {
           </div>
           <div className="row">
             <div className="col-6">
-              <h3>Current Score: {this.getScore()}</h3>
+              <h3>Current Score: {this.state.score}</h3>
             </div>
             <div className="col-6">
               <Button className="reset" color="warning"
