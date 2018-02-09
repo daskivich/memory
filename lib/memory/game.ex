@@ -16,8 +16,7 @@ defmodule Memory.Game do
   def client_view(game) do
     %{
       vals: hideVals(game),
-      comp: game.comp,
-      sel: game.sel,
+      colors: getColors(game),
       score: getScore(game)
     }
   end
@@ -29,6 +28,17 @@ defmodule Memory.Game do
         Enum.at(game.vals, i)
       else
         ""
+      end
+    end)
+  end
+
+  def getColors(game) do
+    range = 0..(Kernel.length(game.vals) - 1)
+    Stream.map(range, fn (i) ->
+      cond do
+        Enum.member?(game.comp, i) -> "success"
+        Enum.member?(game.sel, i) -> "primary"
+        true -> "secondary"
       end
     end)
   end

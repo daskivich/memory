@@ -20,8 +20,10 @@ class Memory extends React.Component {
 
     this.state = {
       vals: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-      comp: [],
-      sel: [],
+      colors: ['seconday', 'seconday', 'seconday', 'seconday',
+        'seconday', 'seconday', 'seconday', 'seconday',
+        'seconday', 'seconday', 'seconday', 'seconday',
+        'seconday', 'seconday', 'seconday', 'seconday'],
       score: 0
     };
 
@@ -34,7 +36,9 @@ class Memory extends React.Component {
     console.log("New view", view);
     this.setState(view.game);
 
-    if (this.state.sel.length == 2) {
+    let selections = _.filter(this.state.colors, (c) => c == "primary");
+
+    if (selections.length == 2) {
       setTimeout(
         () => this.channel.push("match").receive("ok", this.gotView.bind(this)),
         1000
@@ -158,22 +162,17 @@ class Memory extends React.Component {
 
 // the main component of the game containing a Button
 function Tile(props) {
-  let state = props.state;
   let index = props.index;
+  let clr = props.state.colors[index];
+  let disp = props.state.vals[index];
 
-  var clr;
-  var disp;
-
-  if (state.comp.includes(index)) {
-    clr = "success";
-    disp = "";
-  } else if (state.sel.includes(index)) {
-    clr = "primary";
-    disp = state.vals[index];
-  } else {
-    clr = "secondary";
-    disp = "";
-  }
+  // if (state.comp.includes(index)) {
+  //   clr = "success";
+  // } else if (state.sel.includes(index)) {
+  //   clr = "primary";
+  // } else {
+  //   clr = "secondary";
+  // }
 
   return (
     <div className="col-3">
