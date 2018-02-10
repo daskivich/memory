@@ -20,6 +20,7 @@ import "phoenix_html";
 
 import socket from "./socket"
 
+// initialize the index page so its text input sets the game url
 function form_init() {
   $('#game-input').keyup(() => {
     let name = $('#game-input').val();
@@ -29,6 +30,7 @@ function form_init() {
 
 import run_memory from "./memory";
 
+// load the appropriate content based on the page, index or game
 function init() {
   let root = document.getElementById('game');
 

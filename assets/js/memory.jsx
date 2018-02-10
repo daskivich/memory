@@ -8,10 +8,9 @@ export default function run_memory(root, channel) {
 
 /*
 state
-  vals: 16 string values (2 pairs of 'A' through 'H')
-  comp: array of completed indexes
-  sel: array of selected indexes
-  fails: number of failed matches (used to calculate score)
+  vals: the tile values to be displayed as a list of 16 values
+  colors: the colors of the tiles as a list of 16 colors
+  score: the current game score
 */
 class Memory extends React.Component {
   constructor(props) {
@@ -32,8 +31,10 @@ class Memory extends React.Component {
       .receive("error", resp => {console.log("Unable to join", resp)});
   }
 
+  // resets the view upon receiving an updated game state from the controller
+  // sends a subsequent "match" message to the channel if two tiles are selected
   gotView(view) {
-    console.log("New view", view);
+    // console.log("New view", view);
     this.setState(view.game);
 
     let selections = _.filter(this.state.colors, (c) => c == "primary");
@@ -46,6 +47,8 @@ class Memory extends React.Component {
     }
   }
 
+  // event handler for tile selections
+  // uses closure to pass tile index to the channel message
   sendSelection(index) {
       let i = index;
       let c = this.channel;
@@ -165,14 +168,6 @@ function Tile(props) {
   let index = props.index;
   let clr = props.state.colors[index];
   let disp = props.state.vals[index];
-
-  // if (state.comp.includes(index)) {
-  //   clr = "success";
-  // } else if (state.sel.includes(index)) {
-  //   clr = "primary";
-  // } else {
-  //   clr = "secondary";
-  // }
 
   return (
     <div className="col-3">
