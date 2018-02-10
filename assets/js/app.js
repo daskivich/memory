@@ -28,6 +28,13 @@ function form_init() {
   //   .receive("ok", resp => { console.log("Joined successfully", resp); })
   //   .receive("error", resp => { console.log("Unable to join", resp); });
   //
+
+  $('#game-input').keyup(() => {
+    let xx = $('#game-input').val();
+    let url = "/game/".concat(xx);
+    $('#join-link').attr("href", url);
+  });
+
   // $('#game-button').click(() => {
   //   let xx = $('#game-input').val();
   //   channel.push("name", { xx: xx })
